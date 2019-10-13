@@ -12,22 +12,17 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="ovh.trustme.overdated.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_camera"
+        android:name="ovh.trustme.overdated.ui.camera.CameraFragment"
+        android:label="@string/menu_camera"
+        tools:layout="@layout/fragment_camera" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="ovh.trustme.overdated.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_list_products"
+        android:name="ovh.trustme.overdated.ui.list_products.ListProductFragment"
+        android:label="Liste"
+        tools:layout="@layout/fragment_listProducts" />
 
-    <fragment
-        android:id="@+id/nav_tools"
-        android:name="ovh.trustme.overdated.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/nav_share"

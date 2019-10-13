@@ -1,4 +1,4 @@
-package ovh.trustme.overdated.ui.slideshow
+package ovh.trustme.overdated.ui.list_products
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ovh.trustme.overdated.R
 
-class SlideshowFragment : Fragment() {
+class ListProductFragment : Fragment() {
 
-    private lateinit var slideshowViewModel: SlideshowViewModel
+    private lateinit var listProductsViewModel: ListProductsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
+        listProductsViewModel =
+                ViewModelProviders.of(this).get(listProductsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_listProducts, container, false)
         val textView: TextView = root.findViewById(R.id.text_slideshow)
-        slideshowViewModel.text.observe(this, Observer {
+        listProductsViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root

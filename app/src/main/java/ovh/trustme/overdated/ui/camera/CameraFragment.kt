@@ -1,4 +1,4 @@
-package ovh.trustme.overdated.ui.tools
+package ovh.trustme.overdated.ui.camera
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ovh.trustme.overdated.R
 
-class ToolsFragment : Fragment() {
+class CameraFragment : Fragment() {
 
-    private lateinit var toolsViewModel: ToolsViewModel
+    private lateinit var cameraViewModel: CameraViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        toolsViewModel =
-                ViewModelProviders.of(this).get(ToolsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_tools, container, false)
-        val textView: TextView = root.findViewById(R.id.text_tools)
-        toolsViewModel.text.observe(this, Observer {
+        cameraViewModel =
+                ViewModelProviders.of(this).get(CameraViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_camera, container, false)
+        val textView: TextView = root.findViewById(R.id.text_gallery)
+        cameraViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root
