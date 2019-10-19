@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 import ovh.trustme.overdated.R
 
 class ListProductFragment : Fragment() {
@@ -19,13 +18,14 @@ class ListProductFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        listProductsViewModel =
-                ViewModelProviders.of(this).get(listProductsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_listProducts, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
+        listProductsViewModel = ListProductsViewModel()
+
+        //        ViewModelProviders.of(this).get(listProductsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_list_products, container, false)
+        /*val textView: TextView = root.findViewById(R.id.text_list_products)
         listProductsViewModel.text.observe(this, Observer {
             textView.text = it
-        })
+        })*/
         return root
     }
 }

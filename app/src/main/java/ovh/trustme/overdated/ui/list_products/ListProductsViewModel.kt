@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 
 class ListProductsViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is the list fragment Fragment"
+    /*private val _text = MutableLiveData<String>().apply {
+        value = "This is List"
     }
-    val text: LiveData<String> = _text
+    val text: LiveData<String> = _text*/
 }
