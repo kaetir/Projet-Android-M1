@@ -14,4 +14,11 @@
     <string name="menu_send">Send</string>
     <string name="communicate">Communicate</string>
     <string name="text_products_list">liste des produits</string>
+    <string name="photo_product">Photo produit</string>
+    <string name="productname">ProductName</string>
+    <string name="detail">Detail</string>
+    <string name="use">Utilisé</string>
+    <string name="delete">Suprimer</string>
+    <string name="hintDate">le choix dans la date</string>
+    <string name="caca">CACA</string>
 </resources>

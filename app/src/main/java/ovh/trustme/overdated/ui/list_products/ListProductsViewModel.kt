@@ -7,11 +7,11 @@ import ovh.trustme.overdated.Produit
 
 class ListProductsViewModel : ViewModel() {
 
+    /*
     private val _liste = MutableList<Produit>().apply {
 
     }
 
-    /*
     private val _text = MutableLiveData<String>().apply {
         value = "This is List"
     }
