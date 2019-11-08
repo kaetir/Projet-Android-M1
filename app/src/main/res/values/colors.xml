@@ -6,4 +6,6 @@
     <color name="colorBackground">#075155</color>
     <color name="colorTopBar">#2e2e2e</color>
     <color name="jauneMoche">#f49731</color>
+    <color name="blanc">#FFFFFF</color>
+
 </resources>
