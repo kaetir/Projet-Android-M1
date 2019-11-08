@@ -22,7 +22,12 @@
         android:id="@+id/list_product_element_name"
         android:layout_width="0dp"
         android:layout_height="64dp"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/jauneMoche"
+        android:gravity="center"
         android:text="@string/productname"
+        app:layout_constraintBottom_toTopOf="@+id/list_product_element_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/list_product_element_picture"
         app:layout_constraintTop_toTopOf="@+id/list_product_element_picture" />
@@ -31,6 +36,7 @@
         android:id="@+id/list_product_element_date"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:autofillHints="20:10:2020"
         android:ems="10"
         android:inputType="date"
@@ -46,19 +52,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_product_element_picture">
+        app:layout_constraintTop_toBottomOf="@+id/list_product_element_date">
 
         <Button
             android:id="@+id/detailButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/jauneMoche"
             android:text="Detail " />
 
         <Button
@@ -66,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/jauneMoche"
             android:text="Utilisé" />
 
         <Button
@@ -73,6 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/jauneMoche"
             android:text="Suprimer" />
     </LinearLayout>
 
