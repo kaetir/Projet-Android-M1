@@ -19,6 +19,7 @@
     <string name="detail">Detail</string>
     <string name="use">Utilisé</string>
     <string name="delete">Suprimer</string>
+    <string name="ean">EAN 13</string>
     <string name="hintDate">le choix dans la date</string>
     <string name="caca">CACA</string>
 </resources>

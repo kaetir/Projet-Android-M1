@@ -44,7 +44,7 @@
         android:background="@color/jauneMoche"
         android:ems="10"
         android:gravity="center"
-        android:hint="@string/productname"
+        android:hint="@string/ean"
         android:inputType="textPersonName"
         android:padding="4dp"
         app:layout_constraintBottom_toTopOf="@+id/editText2"
