@@ -1,5 +1,6 @@
 package ovh.trustme.overdated.ui.camera
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ovh.trustme.overdated.R
+import java.text.SimpleDateFormat
+import java.util.*
+import javax.xml.datatype.DatatypeConstants.MONTHS
 
 class CameraFragment : Fragment() {
 
@@ -39,10 +43,33 @@ class CameraFragment : Fragment() {
         }
 
         val capartencuisine: Button = root.findViewById(R.id.capartencuisine)
-        capartencuisine.setOnClickListener{l ->
+        capartencuisine.setOnClickListener{
             Toast.makeText(requireContext(), "caca", Toast.LENGTH_LONG).show()
         }
 
+        val lechoixdansladate: TextView  = root.findViewById(R.id.lechoixdansladate)
+        lechoixdansladate.text = SimpleDateFormat("dd.MM.yyyy").format(System.currentTimeMillis())
+
+        var cal = Calendar.getInstance()
+
+
+        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            val myFormat = "dd.MM.yyyy" // mention the format you need
+            val sdf = SimpleDateFormat(myFormat, Locale.US)
+            lechoixdansladate.text = sdf.format(cal.time)
+
+        }
+
+        lechoixdansladate.setOnClickListener{ l ->
+            DatePickerDialog(requireContext(), dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
 
         return root
     }

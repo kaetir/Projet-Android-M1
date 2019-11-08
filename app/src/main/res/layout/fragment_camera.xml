@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/lechoixdansladate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -62,7 +62,6 @@
         android:ems="10"
         android:gravity="center"
         android:hint="@string/hintDate"
-        android:inputType="date"
         android:padding="4dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
