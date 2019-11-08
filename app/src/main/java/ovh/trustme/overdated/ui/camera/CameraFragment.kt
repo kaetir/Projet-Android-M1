@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -26,6 +26,24 @@ class CameraFragment : Fragment() {
         cameraViewModel.text.observe(this, Observer {
             textView.text = it
         })
+        val dlc_dluo: Switch = root.findViewById(R.id.dlc_dluo)
+        dlc_dluo.setOnCheckedChangeListener{ _, isChecked ->
+            if (isChecked) {
+                // The switch is enabled/checked
+                dlc_dluo.text = "DLC"
+
+            } else {
+                // The switch is disabled
+                dlc_dluo.text = "DLUO"
+            }
+        }
+
+        val capartencuisine: Button = root.findViewById(R.id.capartencuisine)
+        capartencuisine.setOnClickListener{l ->
+            Toast.makeText(requireContext(), "caca", Toast.LENGTH_LONG).show()
+        }
+
+
         return root
     }
 }

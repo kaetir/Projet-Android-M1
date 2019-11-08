@@ -87,9 +87,11 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@color/jauneMoche"
+            android:checked="true"
             android:gravity="center"
             android:padding="4dp"
-            android:text="DLC" />
+            android:text="DLC"
+            tools:checked="true" />
 
         <Button
             android:id="@+id/capartencuisine"
