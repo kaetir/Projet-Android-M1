@@ -5,6 +5,7 @@
     android:id="@+id/list_element_produit_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:orientation="vertical">
 
     <ImageView
@@ -28,24 +29,27 @@
 
     <EditText
         android:id="@+id/list_product_element_date"
-        android:autofillHints="20:10:2020"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autofillHints="20:10:2020"
         android:ems="10"
         android:inputType="date"
         app:layout_constraintBottom_toBottomOf="@+id/list_product_element_picture"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/list_product_element_picture"
-        app:layout_constraintTop_toBottomOf="@+id/list_product_element_name" />
+        app:layout_constraintTop_toBottomOf="@+id/list_product_element_name"
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_product_element_picture">
@@ -71,4 +75,20 @@
             android:layout_weight="1"
             android:text="Suprimer" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/ic_barre_jaune" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
