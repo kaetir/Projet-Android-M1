@@ -21,7 +21,7 @@
         android:id="@+id/nav_list_products"
         android:name="ovh.trustme.overdated.ui.list_products.ListProductFragment"
         android:label="Liste"
-        tools:layout="@layout/fragment_listProducts" />
+        tools:layout="@layout/fragment_list_products" />
 
 
     <fragment

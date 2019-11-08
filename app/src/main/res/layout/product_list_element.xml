@@ -5,17 +5,18 @@
     android:id="@+id/list_element_produit_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/list_product_element_picture"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:contentDescription="@string/caca"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_menu_camera"
-        android:contentDescription="@string/caca" />
+        app:srcCompat="@drawable/ic_menu_camera" />
 
     <TextView
         android:id="@+id/list_product_element_name"
@@ -30,14 +31,13 @@
         android:id="@+id/list_product_element_date"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autofillHints=""
         android:ems="10"
-        android:inputType="date"
         android:hint="@string/hintDate"
+        android:inputType="date"
         app:layout_constraintBottom_toBottomOf="@+id/list_product_element_picture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/list_product_element_picture"
         app:layout_constraintTop_toBottomOf="@+id/list_product_element_name"
-        android:autofillHints=""
-        tools:targetApi="o"
-        />
+        tools:targetApi="o" />
 </androidx.constraintlayout.widget.ConstraintLayout>
