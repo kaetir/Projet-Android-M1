@@ -17,14 +17,19 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".BarCodeReaderTest2"
+            android:name=".BarCodeReader"
+            android:screenOrientation="fullSensor"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:replace="screenOrientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".CaptureActivityPortrait">
         </activity>
     </application>
 

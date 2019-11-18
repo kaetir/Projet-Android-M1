@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.google.zxing.integration.android.IntentIntegrator
 
-class BarCodeReaderTest2 : Activity() {
+class BarCodeReader : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,7 +14,11 @@ class BarCodeReaderTest2 : Activity() {
     }
 
     private fun getScanner() {
-        IntentIntegrator(this).initiateScan()
+        val integrator = IntentIntegrator(this)
+        integrator.setPrompt("Scanner un code-barre")
+        integrator.setOrientationLocked(false)
+        integrator.setCaptureActivity(CaptureActivityPortrait::class.java)
+        integrator.initiateScan()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -22,9 +26,9 @@ class BarCodeReaderTest2 : Activity() {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Annuler", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Scan de : " + result.contents, Toast.LENGTH_LONG).show()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
