@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".BarCodeReader"
+            android:name=".MainActivity"
             android:screenOrientation="fullSensor"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
