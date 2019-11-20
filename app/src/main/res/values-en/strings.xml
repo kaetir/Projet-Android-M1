@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">overdated</string>
+    <string name="action_settings">Settings</string>
+    <string name="DCL">Expiration date</string>
+    <string name="DLUO">Shelf life</string>
+    <string name="caca">CACA</string>
+    <string name="menu_camera">Scanner</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_liste">Products list</string>
+    <string name="menu_send">Send</string>
+    <string name="menu_share">Share</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_title">Overdated</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="communicate">Communicate</string>
+    <string name="detail">Detail</string>
+    <string name="delete">Delete</string>
+    <string name="ean">EAN 13</string>
+    <string name="hintDate">choice in date</string>
+    <string name="use">Used</string>
+    <string name="text_products_list">Products list</string>
+    <string name="productname">Product Name</string>
+    <string name="photo_product">Product picture</string>
+    <string name="nav_header_subtitle">Help with products expiration date</string>
+</resources>

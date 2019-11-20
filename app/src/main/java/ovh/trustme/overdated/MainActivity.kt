@@ -1,5 +1,7 @@
 package ovh.trustme.overdated
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -13,10 +15,13 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private var REQUEST_PERMISSION_CAMERA = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_share, R.id.nav_send), drawerLayout)
         setupActionBarWithNavController(navController, this.appBarConfiguration)
         navView.setupWithNavController(navController)
+        checkPermission()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -45,5 +51,14 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun checkPermission() {
+        if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.CAMERA),REQUEST_PERMISSION_CAMERA)
+        }
+
     }
 }

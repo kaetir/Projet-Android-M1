@@ -1,27 +1,27 @@
 <resources>
     <string name="app_name">overdated</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Overdated</string>
-    <string name="nav_header_subtitle">aide à la surveillance des dlc</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="nav_header_subtitle">Aide à la surveillance des dlc</string>
+    <string name="action_settings">Paramètres</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_camera">Camera</string>
+    <string name="menu_home">Accueil</string>
+    <string name="menu_camera">Scanner</string>
     <string name="menu_liste">Lites des produits</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
-    <string name="communicate">Communicate</string>
-    <string name="text_products_list">liste des produits</string>
+    <string name="menu_share">Partager</string>
+    <string name="menu_send">Envoyer</string>
+    <string name="communicate">Communication</string>
+    <string name="text_products_list">Liste des produits</string>
     <string name="photo_product">Photo produit</string>
-    <string name="productname">ProductName</string>
-    <string name="detail">Detail</string>
+    <string name="productname">Nom du produit</string>
+    <string name="detail">Détail</string>
     <string name="use">Utilisé</string>
-    <string name="delete">Suprimer</string>
+    <string name="delete">Supprimer</string>
     <string name="ean">EAN 13</string>
     <string name="hintDate">le choix dans la date</string>
     <string name="caca">CACA</string>
     <string name="DCL">DLC</string>
     <string name="DLUO">DLUO</string>
+    <string name="nav_header_desc">En-tête de navigation</string>
+    <string name="navigation_drawer_close">Fermeture du tirroir</string>
+    <string name="navigation_drawer_open">Ouverture du tirroir</string>
 </resources>
