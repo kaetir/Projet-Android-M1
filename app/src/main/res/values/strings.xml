@@ -22,4 +22,6 @@
     <string name="ean">EAN 13</string>
     <string name="hintDate">le choix dans la date</string>
     <string name="caca">CACA</string>
+    <string name="DCL">DLC</string>
+    <string name="DLUO">DLUO</string>
 </resources>

@@ -9,6 +9,10 @@ public class Product {
     @SerializedName("name")
     public String name;
 
+    @SerializedName("dlc_dluo")
+    public String dlc_dluo;
+
+
 
     @Override
     public String toString() {

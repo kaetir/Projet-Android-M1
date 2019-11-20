@@ -59,6 +59,9 @@ public class productadapter extends BaseAdapter{
         holder.name.setText(produit.name);
         // Set the user alias, to do so, retrieve the corresponding TextView
         holder.date.setText(produit.date);
+        // Set the user alias, to do so, retrieve the corresponding TextView
+        holder.dlc_dluo.setText(produit.dlc_dluo);
+
 
         return convertView;
     }
@@ -67,11 +70,14 @@ public class productadapter extends BaseAdapter{
         public ImageView image;
         public TextView name;
         public TextView date;
+        public TextView dlc_dluo;
 
         public ViewHolder(View view) {
             image = view.findViewById(R.id.list_product_element_picture);
             name = view.findViewById(R.id.list_product_element_name);
             date = view.findViewById(R.id.list_product_element_date);
+            dlc_dluo = view.findViewById(R.id.list_product_perempt_type);
+
         }
     }
 }

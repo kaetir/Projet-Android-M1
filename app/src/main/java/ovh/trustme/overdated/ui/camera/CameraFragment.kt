@@ -60,7 +60,7 @@ class CameraFragment : Fragment() {
         })
 
         barcodeView = root.findViewById(R.id.barcode_scanner) as DecoratedBarcodeView
-        val formats: Collection<BarcodeFormat> = Arrays.asList(
+        val formats: Collection<BarcodeFormat> = listOf(
             BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39
         )
 
@@ -69,15 +69,15 @@ class CameraFragment : Fragment() {
         barcodeView?.initializeFromIntent(intent)
         barcodeView?.decodeContinuous(callback)
 
-        val dlc_dluo: Switch = root.findViewById(R.id.dlc_dluo)
-        dlc_dluo.setOnCheckedChangeListener{ _, isChecked ->
+        val dlcDluo: Switch = root.findViewById(R.id.dlc_dluo)
+        dlcDluo.setOnCheckedChangeListener{ _, isChecked ->
             if (isChecked) {
                 // The switch is enabled/checked
-                dlc_dluo.text = "DLC"
+                dlcDluo.text = getString(R.string.DCL)
 
             } else {
                 // The switch is disabled
-                dlc_dluo.text = "DLUO"
+                dlcDluo.text = getString(R.string.DLUO)
             }
         }
 
@@ -87,12 +87,13 @@ class CameraFragment : Fragment() {
         }
 
         val lechoixdansladate: TextView  = root.findViewById(R.id.lechoixdansladate)
-        lechoixdansladate.text = SimpleDateFormat("dd.MM.yyyy").format(System.currentTimeMillis())
+        lechoixdansladate.text = SimpleDateFormat("dd.MM.yyyy")
+                                    .format(System.currentTimeMillis())
 
-        var cal = Calendar.getInstance()
+        val cal = Calendar.getInstance()
 
 
-        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -103,7 +104,7 @@ class CameraFragment : Fragment() {
 
         }
 
-        lechoixdansladate.setOnClickListener{ l ->
+        lechoixdansladate.setOnClickListener{
             DatePickerDialog(requireContext(), dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
@@ -123,15 +124,15 @@ class CameraFragment : Fragment() {
         barcodeView!!.pause()
     }
 
-    fun pause(view: View?) {
+    fun pause() {
         barcodeView!!.pause()
     }
 
-    fun resume(view: View?) {
+    fun resume() {
         barcodeView!!.resume()
     }
 
-    fun triggerScan(view: View?) {
+    fun triggerScan() {
         barcodeView!!.decodeSingle(callback)
     }
 }
