@@ -3,6 +3,7 @@ package ovh.trustme.overdated.ui.camera
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +18,16 @@ import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import com.journeyapps.barcodescanner.DefaultDecoderFactory
 import ovh.trustme.overdated.MainActivity
-import ovh.trustme.overdated.R
 import java.text.SimpleDateFormat
+import ovh.trustme.overdated.R
+import ovh.trustme.overdated.pojo.ProductService
+import ovh.trustme.overdated.pojo.Requette_openfood
+import retrofit2.Callback
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+import java.io.IOException
 import java.util.*
 
 
@@ -33,7 +42,7 @@ class CameraFragment : Fragment() {
             if (result.text == null || result.text == lastText) { // Prevent duplicate scans
                 return
             }
-            Toast.makeText( activity, "Scan de : " + result.text, Toast.LENGTH_LONG).show()
+            //Toast.makeText( activity, "Scan de : " + result.text, Toast.LENGTH_LONG).show()
             lastText = result.text
 
             val textView = view!!.findViewById<TextView>(R.id.camera_ean)
@@ -79,14 +88,42 @@ class CameraFragment : Fragment() {
             }
         }
 
-        val capartencuisine: Button = root.findViewById(R.id.capartencuisine)
-        capartencuisine.setOnClickListener{
-            Toast.makeText(requireContext(), "caca", Toast.LENGTH_LONG).show()
-        }
+
 
         val lechoixdansladate: TextView  = root.findViewById(R.id.lechoixdansladate)
         lechoixdansladate.text = SimpleDateFormat("dd.MM.yyyy")
                                     .format(System.currentTimeMillis())
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://world.openfoodfacts.org/api/v0/product/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
+
+        val capartencuisine: Button = root.findViewById(R.id.capartencuisine)
+        capartencuisine.setOnClickListener{
+            val ean13 = view!!.findViewById<TextView>(R.id.camera_ean).text
+            val type = dlcDluo.text
+            val date  = lechoixdansladate.text
+
+
+            val service = retrofit.create(ProductService::class.java)
+            val productRequest = service.productGot()
+
+            if(!productRequest.isExecuted)
+            productRequest.enqueue(object : Callback<Requette_openfood> {
+                override fun onResponse(call: Call<Requette_openfood>, response: Response<Requette_openfood>) {
+                    val prodInfo: Requette_openfood? = response.body()
+                    Toast.makeText(requireContext(), prodInfo?.code.toString(), Toast.LENGTH_LONG).show()
+                }
+                override fun onFailure(call: Call<Requette_openfood>, t: Throwable) {
+                    if(t is IOException)
+                        Toast.makeText(requireContext(), "La co marche pas", Toast.LENGTH_LONG).show()
+                    else
+                        Toast.makeText(requireContext(), "Fail to request", Toast.LENGTH_LONG).show()
+                }
+            })
+
+        }
 
         val cal = Calendar.getInstance()
 
