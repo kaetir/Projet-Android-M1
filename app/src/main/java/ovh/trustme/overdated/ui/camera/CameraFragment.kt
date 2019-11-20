@@ -3,7 +3,6 @@ package ovh.trustme.overdated.ui.camera
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,6 @@ class CameraFragment : Fragment() {
     private val callback: BarcodeCallback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {
             if (result.text == null || result.text == lastText) { // Prevent duplicate scans
-                Log.d("RESULT", "NULL")
                 return
             }
             Toast.makeText( activity, "Scan de : " + result.text, Toast.LENGTH_LONG).show()
@@ -59,14 +57,16 @@ class CameraFragment : Fragment() {
             textView.text = it
         })
 
-        barcodeView = root.findViewById(R.id.barcode_scanner) as DecoratedBarcodeView
-        val formats: Collection<BarcodeFormat> = Arrays.asList(
-            BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39
+        val formats: Collection<BarcodeFormat> = listOf(
+            BarcodeFormat.EAN_13
         )
 
         val intent = Intent(activity, MainActivity::class.java)
-        barcodeView?.barcodeView?.decoderFactory = DefaultDecoderFactory(formats)
+
+        barcodeView = root.findViewById(R.id.barcode_scanner) as DecoratedBarcodeView
+        barcodeView?.setStatusText("Placez un code-barres au niveau du scanner")
         barcodeView?.initializeFromIntent(intent)
+        barcodeView?.barcodeView?.decoderFactory = DefaultDecoderFactory(formats)
         barcodeView?.decodeContinuous(callback)
 
         val dlc_dluo: Switch = root.findViewById(R.id.dlc_dluo)
@@ -121,17 +121,5 @@ class CameraFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         barcodeView!!.pause()
-    }
-
-    fun pause(view: View?) {
-        barcodeView!!.pause()
-    }
-
-    fun resume(view: View?) {
-        barcodeView!!.resume()
-    }
-
-    fun triggerScan(view: View?) {
-        barcodeView!!.decodeSingle(callback)
     }
 }
