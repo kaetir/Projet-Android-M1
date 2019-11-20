@@ -42,7 +42,7 @@
         android:hint="@string/hintDate"
         android:inputType="date"
         app:layout_constraintBottom_toBottomOf="@+id/list_product_element_picture"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/list_product_perempt_type"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/list_product_element_picture"
         app:layout_constraintTop_toBottomOf="@+id/list_product_element_name"
@@ -61,4 +61,14 @@
         app:layout_constraintTop_toBottomOf="@+id/list_product_element_picture"
         app:srcCompat="@drawable/ic_barre_jaune"
         android:contentDescription="barre pointillé" />
+
+    <TextView
+        android:id="@+id/list_product_perempt_type"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/list_product_element_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/list_product_element_date" />
 </androidx.constraintlayout.widget.ConstraintLayout>

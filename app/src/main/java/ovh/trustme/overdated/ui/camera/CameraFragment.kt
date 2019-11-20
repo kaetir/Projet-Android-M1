@@ -57,9 +57,7 @@ class CameraFragment : Fragment() {
             textView.text = it
         })
 
-        val formats: Collection<BarcodeFormat> = listOf(
-            BarcodeFormat.EAN_13
-        )
+        val formats: Collection<BarcodeFormat> = listOf(BarcodeFormat.EAN_13)
 
         val intent = Intent(activity, MainActivity::class.java)
 
@@ -69,15 +67,15 @@ class CameraFragment : Fragment() {
         barcodeView?.barcodeView?.decoderFactory = DefaultDecoderFactory(formats)
         barcodeView?.decodeContinuous(callback)
 
-        val dlc_dluo: Switch = root.findViewById(R.id.dlc_dluo)
-        dlc_dluo.setOnCheckedChangeListener{ _, isChecked ->
+        val dlcDluo: Switch = root.findViewById(R.id.dlc_dluo)
+        dlcDluo.setOnCheckedChangeListener{ _, isChecked ->
             if (isChecked) {
                 // The switch is enabled/checked
-                dlc_dluo.text = "DLC"
+                dlcDluo.text = getString(R.string.DCL)
 
             } else {
                 // The switch is disabled
-                dlc_dluo.text = "DLUO"
+                dlcDluo.text = getString(R.string.DLUO)
             }
         }
 
@@ -87,12 +85,13 @@ class CameraFragment : Fragment() {
         }
 
         val lechoixdansladate: TextView  = root.findViewById(R.id.lechoixdansladate)
-        lechoixdansladate.text = SimpleDateFormat("dd.MM.yyyy").format(System.currentTimeMillis())
+        lechoixdansladate.text = SimpleDateFormat("dd.MM.yyyy")
+                                    .format(System.currentTimeMillis())
 
-        var cal = Calendar.getInstance()
+        val cal = Calendar.getInstance()
 
 
-        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -103,7 +102,7 @@ class CameraFragment : Fragment() {
 
         }
 
-        lechoixdansladate.setOnClickListener{ l ->
+        lechoixdansladate.setOnClickListener{
             DatePickerDialog(requireContext(), dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
