@@ -17,11 +17,13 @@ import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import com.journeyapps.barcodescanner.DefaultDecoderFactory
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import ovh.trustme.overdated.MainActivity
 import java.text.SimpleDateFormat
 import ovh.trustme.overdated.R
 import ovh.trustme.overdated.pojo.ProductService
-import ovh.trustme.overdated.pojo.Requette_openfood
+import ovh.trustme.overdated.pojo.RequeteOpenfood
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
@@ -94,9 +96,18 @@ class CameraFragment : Fragment() {
         lechoixdansladate.text = SimpleDateFormat("dd.MM.yyyy")
                                     .format(System.currentTimeMillis())
 
+        val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+            this.level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        val client : OkHttpClient = OkHttpClient.Builder().apply {
+            this.addInterceptor(interceptor)
+        }.build()
+
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://world.openfoodfacts.org/api/v0/product/")
+            .baseUrl("https://world.openfoodfacts.org/")
             .addConverterFactory(MoshiConverterFactory.create())
+            .client(client)
             .build()
 
         val capartencuisine: Button = root.findViewById(R.id.capartencuisine)
@@ -110,12 +121,14 @@ class CameraFragment : Fragment() {
             val productRequest = service.productGot()
 
             if(!productRequest.isExecuted)
-            productRequest.enqueue(object : Callback<Requette_openfood> {
-                override fun onResponse(call: Call<Requette_openfood>, response: Response<Requette_openfood>) {
-                    val prodInfo: Requette_openfood? = response.body()
-                    Toast.makeText(requireContext(), prodInfo?.code.toString(), Toast.LENGTH_LONG).show()
+            productRequest.enqueue(object : Callback<RequeteOpenfood> {
+                override fun onResponse(call: Call<RequeteOpenfood>, response: Response<RequeteOpenfood>) {
+                    val prodInfo: RequeteOpenfood? = response.body()
+                    Log.d("goodFood", productRequest.request().url.toString())
+                    Toast.makeText(requireContext(), prodInfo?.product?.product_name, Toast.LENGTH_LONG).show()
                 }
-                override fun onFailure(call: Call<Requette_openfood>, t: Throwable) {
+                override fun onFailure(call: Call<RequeteOpenfood>, t: Throwable) {
+                    Log.d("badFood", t.message)
                     if(t is IOException)
                         Toast.makeText(requireContext(), "La co marche pas", Toast.LENGTH_LONG).show()
                     else

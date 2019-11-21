@@ -2,11 +2,11 @@ package ovh.trustme.overdated.pojo
 
 import com.google.gson.annotations.SerializedName
 
-class Product_openfood(
+class ProductOpenfood(
     @SerializedName("image_url")
     val image_url: String,
     @SerializedName("traces_from_ingredients")
-    val traces_from_ingredients: List<String>,
+    val traces_from_ingredients: String,
     @SerializedName("product_name_fr")
     val product_name: String
 ) {
