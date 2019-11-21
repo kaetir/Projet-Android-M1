@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 
 interface ProductService {
-    @GET("737628064502.json")
+    @GET("/737628064502.json")
     fun productGot(): Call<Requette_openfood>
 }
