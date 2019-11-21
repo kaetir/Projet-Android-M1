@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -49,4 +51,12 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:2.6.2"
     implementation "com.squareup.okhttp3:okhttp:3.11.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.2.1"
+
+
+    // Room dependancies
+    def room_version = "2.2.0"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+
 }

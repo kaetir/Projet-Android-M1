@@ -11,7 +11,7 @@ import java.util.List;
 
 import ovh.trustme.overdated.ProduitApplication;
 import ovh.trustme.overdated.R;
-import ovh.trustme.overdated.pojo.Product;
+import ovh.trustme.overdated.database.Product;
 
 public class productadapter extends BaseAdapter{
     private List<Product> mProducts;
@@ -56,11 +56,11 @@ public class productadapter extends BaseAdapter{
         final Product produit = (Product) getItem(position);
 
         // Set the user name, to do so, retrieve the corresponding TextView
-        holder.name.setText(produit.name);
+        holder.name.setText(produit.getName());
         // Set the user alias, to do so, retrieve the corresponding TextView
-        holder.date.setText(produit.date);
+        holder.date.setText(produit.getDate());
         // Set the user alias, to do so, retrieve the corresponding TextView
-        holder.dlc_dluo.setText(produit.dlc_dluo);
+        holder.dlc_dluo.setText(produit.getDlc_dluo());
 
 
         return convertView;

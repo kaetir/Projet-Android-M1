@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.room.Room
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
@@ -22,6 +23,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import ovh.trustme.overdated.MainActivity
 import java.text.SimpleDateFormat
 import ovh.trustme.overdated.R
+import ovh.trustme.overdated.database.Product
+import ovh.trustme.overdated.database.ProductDatabase
 import ovh.trustme.overdated.pojo.ProductService
 import ovh.trustme.overdated.pojo.RequeteOpenfood
 import retrofit2.Callback
@@ -38,6 +41,8 @@ class CameraFragment : Fragment() {
     private lateinit var cameraViewModel: CameraViewModel
     private var barcodeView: DecoratedBarcodeView? = null
     private var lastText: String? = null
+
+    val db = ProductDatabase(context!!)
 
     private val callback: BarcodeCallback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {
@@ -105,16 +110,15 @@ class CameraFragment : Fragment() {
         }.build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://world.openfoodfacts.org/")
+            .baseUrl("http://world.openfoodfacts.org/")
             .addConverterFactory(MoshiConverterFactory.create())
             .client(client)
             .build()
 
         val capartencuisine: Button = root.findViewById(R.id.capartencuisine)
         capartencuisine.setOnClickListener{
-            val ean13 = view!!.findViewById<TextView>(R.id.camera_ean).text
-            val type = dlcDluo.text
-            val date  = lechoixdansladate.text
+            val type = dlcDluo.text as String
+            val date  = lechoixdansladate.text as String
 
 
             val service = retrofit.create(ProductService::class.java)
@@ -124,8 +128,13 @@ class CameraFragment : Fragment() {
             productRequest.enqueue(object : Callback<RequeteOpenfood> {
                 override fun onResponse(call: Call<RequeteOpenfood>, response: Response<RequeteOpenfood>) {
                     val prodInfo: RequeteOpenfood? = response.body()
-                    Log.d("goodFood", productRequest.request().url.toString())
-                    Toast.makeText(requireContext(), prodInfo?.product?.product_name, Toast.LENGTH_LONG).show()
+                    val product = prodInfo?.product
+                    //Log.d("goodFood", productRequest.request().url.toString())
+                    db.productDao().insertAll(Product(name=product!!.product_name, dlc_dluo=type, date=date, urlImage=product.image_url, id =0))
+                    Toast.makeText(requireContext(), prodInfo.product.product_name, Toast.LENGTH_LONG).show()
+                    db.productDao().getAll().forEach{
+                        Log.d("Product", it.name)
+                    }
                 }
                 override fun onFailure(call: Call<RequeteOpenfood>, t: Throwable) {
                     Log.d("badFood", t.message)
