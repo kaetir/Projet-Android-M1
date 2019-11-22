@@ -8,9 +8,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.security.AccessControlContext
 
-@Database(entities = arrayOf(Product::class), version = 1, exportSchema = false)
+@Database(entities = [Product::class], version = 1, exportSchema = false)
 abstract class ProductDatabase: RoomDatabase(){
     abstract fun productDao():ProductDao
 
