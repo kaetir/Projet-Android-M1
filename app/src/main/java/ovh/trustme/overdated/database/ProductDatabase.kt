@@ -4,21 +4,69 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.security.AccessControlContext
 
-@Database(entities = arrayOf(Product::class), version = 1)
+@Database(entities = arrayOf(Product::class), version = 1, exportSchema = false)
 abstract class ProductDatabase: RoomDatabase(){
     abstract fun productDao():ProductDao
 
     companion object {
-        @Volatile private var instance: ProductDatabase? = null
-        private val LOCK= Any()
+        @Volatile
+        private var INSTANCE: ProductDatabase? = null
 
-        operator fun invoke(context: Context)= instance?: synchronized(LOCK){
-            instance?: buildDatabase(context).also{ instance = it}
+        fun getDatabase(
+            context: Context,
+            scope: CoroutineScope
+        ): ProductDatabase {
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
+                return tempInstance
+            }
+            synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    ProductDatabase::class.java,
+                    "product_database"
+                ).build()
+                INSTANCE = instance
+                return instance
+            }
         }
 
-        private fun buildDatabase(context: Context) = Room.databaseBuilder(context, ProductDatabase::class.java, "Products.db").build()
+        private class ProductDatabaseCallback(
+            private val scope: CoroutineScope
+        ) : RoomDatabase.Callback() {
+            /**
+             * Override the onOpen method to populate the database.
+             * For this sample, we clear the database every time it is created or opened.
+             */
+            override fun onOpen(db: SupportSQLiteDatabase) {
+                super.onOpen(db)
+                // If you want to keep the data through app restarts,
+                // comment out the following line.
+                INSTANCE?.let { database ->
+                    scope.launch(Dispatchers.IO) {
+                        populateDatabase(database.productDao())
+                    }
+                }
+            }
+        }
+
+        /**
+         * Populate the database in a new coroutine.
+         * If you want to start with more words, just add them.
+         */
+        suspend fun populateDatabase(productDao: ProductDao) {
+            // Start the app with a clean database every time.
+            // Not needed if you only populate on creation.
+            productDao.deleteAll()
+            var product = Product(0, "2019-11-21", "test", "dlc", "https://www.isen.fr/wp-content/uploads/2017/01/Yncrea_BM_ISEN-_horizontal-1.jpg")
+            productDao.insert(product)
+        }
 
     }
 }
