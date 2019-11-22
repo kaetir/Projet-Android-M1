@@ -25,6 +25,5 @@
     <string name="navigation_drawer_open">Ouverture du tiroir</string>
     <string name="ca_part_en_cuisine">Ca part en cuisine</string>
     <string name="barre_pointillee">barre pointillée</string>
-    <string name="delete">Supprimer</string>
     <string name="dlc_dluo">DLC/DLUO</string>
 </resources>
