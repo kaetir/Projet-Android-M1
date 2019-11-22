@@ -50,7 +50,6 @@ class CameraFragment : Fragment() {
             if (result.text == null || result.text == lastText) { // Prevent duplicate scans
                 return
             }
-            //Toast.makeText( activity, "Scan de : " + result.text, Toast.LENGTH_LONG).show()
             lastText = result.text
 
             val textView = view!!.findViewById<TextView>(R.id.camera_ean)
@@ -97,7 +96,7 @@ class CameraFragment : Fragment() {
         dlcDluo.setOnCheckedChangeListener{ _, isChecked ->
             if (isChecked) {
                 // The switch is enabled/checked
-                dlcDluo.text = getString(R.string.DCL)
+                dlcDluo.text = getString(R.string.DLC)
 
             } else {
                 // The switch is disabled

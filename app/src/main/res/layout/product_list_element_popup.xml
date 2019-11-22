@@ -12,7 +12,7 @@
         android:id="@+id/list_product_element_picture"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:contentDescription="@string/photo_product"
+        android:contentDescription="@string/product_picture"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,7 +26,7 @@
         android:layout_marginBottom="16dp"
         android:background="@color/jauneMoche"
         android:gravity="center"
-        android:text="@string/productname"
+        android:text="@string/product_name"
         app:layout_constraintBottom_toTopOf="@+id/list_product_element_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/list_product_element_picture"
@@ -65,7 +65,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/jauneMoche"
-            android:text="Detail " />
+            android:text="@string/detail"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/useButton"
@@ -73,7 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/jauneMoche"
-            android:text="Utilisé" />
+            android:text="@string/use"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/deleteButton"
@@ -81,7 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/jauneMoche"
-            android:text="Suprimer" />
+            android:text="@string/delete"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
     <ImageView
@@ -97,6 +100,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:srcCompat="@drawable/ic_barre_jaune" />
+        app:srcCompat="@drawable/ic_barre_jaune"
+        android:contentDescription="@string/product_picture" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

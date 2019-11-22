@@ -6,22 +6,25 @@
 
     <string name="menu_home">Accueil</string>
     <string name="menu_camera">Scanner</string>
-    <string name="menu_liste">Lites des produits</string>
+    <string name="menu_list">Lites des produits</string>
     <string name="menu_share">Partager</string>
     <string name="menu_send">Envoyer</string>
     <string name="communicate">Communication</string>
     <string name="text_products_list">Liste des produits</string>
-    <string name="photo_product">Photo produit</string>
-    <string name="productname">Nom du produit</string>
+    <string name="product_picture">Photo produit</string>
+    <string name="product_name">Nom du produit</string>
     <string name="detail">Détail</string>
     <string name="use">Utilisé</string>
     <string name="delete">Supprimer</string>
     <string name="ean">EAN 13</string>
-    <string name="hintDate">le choix dans la date</string>
-    <string name="caca">CACA</string>
-    <string name="DCL">DLC</string>
+    <string name="hint_date">le choix dans la date</string>
+    <string name="DLC">DLC</string>
     <string name="DLUO">DLUO</string>
     <string name="nav_header_desc">En-tête de navigation</string>
-    <string name="navigation_drawer_close">Fermeture du tirroir</string>
-    <string name="navigation_drawer_open">Ouverture du tirroir</string>
+    <string name="navigation_drawer_close">Fermeture du tiroir</string>
+    <string name="navigation_drawer_open">Ouverture du tiroir</string>
+    <string name="ca_part_en_cuisine">Ca part en cuisine</string>
+    <string name="barre_pointillee">barre pointillée</string>
+    <string name="dlc_dluo">DLC/DLUO</string>
+
 </resources>

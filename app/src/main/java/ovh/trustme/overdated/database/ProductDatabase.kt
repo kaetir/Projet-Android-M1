@@ -64,8 +64,6 @@ abstract class ProductDatabase: RoomDatabase(){
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
             productDao.deleteAll()
-            var product = Product(0, "2019-11-21", "test", "dlc", "https://www.isen.fr/wp-content/uploads/2017/01/Yncrea_BM_ISEN-_horizontal-1.jpg")
-            productDao.insert(product)
         }
 
     }

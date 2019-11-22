@@ -60,7 +60,7 @@
         android:background="@color/jauneMoche"
         android:ems="10"
         android:gravity="center"
-        android:hint="@string/hintDate"
+        android:hint="@string/hint_date"
         android:padding="4dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +88,7 @@
             android:checked="true"
             android:gravity="center"
             android:padding="4dp"
-            android:text="DLC"
+            android:text="@string/DLC"
             tools:checked="true" />
 
         <Button
@@ -97,6 +97,6 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:backgroundTint="@color/jauneMoche"
-            android:text="Ca part en cuisine" />
+            android:text="@string/ca_part_en_cuisine" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
