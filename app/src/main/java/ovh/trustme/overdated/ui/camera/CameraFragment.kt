@@ -110,12 +110,12 @@ class CameraFragment : Fragment() {
             .format(System.currentTimeMillis())
 
         val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-                    this.level = HttpLoggingInterceptor.Level.BODY
-                }
+            this.level = HttpLoggingInterceptor.Level.BODY
+        }
 
         val client : OkHttpClient = OkHttpClient.Builder().apply {
-                    this.addInterceptor(interceptor)
-                }.build()
+            this.addInterceptor(interceptor)
+        }.build()
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://world.openfoodfacts.org/")
@@ -133,30 +133,62 @@ class CameraFragment : Fragment() {
             val service = retrofit.create(ProductService::class.java)
             val productRequest = service.productGot(ean13)
 
-            if(!productRequest.isExecuted) {
-                productRequest.enqueue(object : Callback<RequeteOpenfood> {
-                    override fun onResponse(
-                        call: Call<RequeteOpenfood>,
-                        response: Response<RequeteOpenfood>
-                    ) {
-                        val prodInfo: RequeteOpenfood? = response.body()
-                        val product = prodInfo?.product
-                        //Log.d("goodFood", productRequest.request().url.toString())
-                        Toast.makeText(requireContext(),product?.product_name, Toast.LENGTH_LONG).show()
-                        val dbProduct = Product(0,date,product!!.product_name,type,product.image_url)
-                        productViewModel.insert(dbProduct)
-                    }
+            if(ean13.matches(Regex("^[0-9]{13}$"))) {
+                if (!productRequest.isExecuted) {
+                    productRequest.enqueue(object : Callback<RequeteOpenfood> {
+                        override fun onResponse(
+                            call: Call<RequeteOpenfood>,
+                            response: Response<RequeteOpenfood>
+                        ) {
+                            val prodInfo: RequeteOpenfood? = response.body()
 
-                    override fun onFailure(call: Call<RequeteOpenfood>, t: Throwable) {
-                        Log.d("badFood", t.message)
-                        if (t is IOException) {
-                            Toast.makeText(requireContext(), "La co marche pas", Toast.LENGTH_LONG).show()
+                            if(prodInfo!!.status == 0) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Produit non disponible",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } else {
+                                val product = prodInfo?.product
+
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Produit ajouté !",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                val dbProduct =
+                                    Product(
+                                        0,
+                                        date,
+                                        product!!.product_name,
+                                        type,
+                                        product.image_url
+                                    )
+                                productViewModel.insert(dbProduct)
+                            }
                         }
-                        else {
-                            Toast.makeText(requireContext(),"Fail to request", Toast.LENGTH_LONG).show()
+
+                        override fun onFailure(call: Call<RequeteOpenfood>, t: Throwable) {
+                            Log.d("badFood", t.message)
+                            if (t is IOException) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Problème de connexion",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Fail to request",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                         }
-                    }
-                })
+                    })
+                }
+            }
+            else {
+                Toast.makeText(requireContext(), "Code invalide", Toast.LENGTH_LONG).show()
             }
         }
 

@@ -24,8 +24,9 @@ class ProductAdapter internal constructor(
 
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productNameItemView: TextView = itemView.findViewById(R.id.list_product_element_name)
-        val productDateItemView: EditText = itemView.findViewById(R.id.list_product_element_date)
+        val productDateItemView: TextView = itemView.findViewById(R.id.list_product_element_date)
         val productImageItemView: ImageView = itemView.findViewById(R.id.list_product_element_picture)
+        var productDLCDLUOItemView: TextView = itemView.findViewById(R.id.list_product_perempt_type)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -36,8 +37,10 @@ class ProductAdapter internal constructor(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val current = products[position]
         holder.productNameItemView.text = current.name
-        holder.productDateItemView.text = Editable.Factory.getInstance().newEditable(current.date)
+        holder.productDateItemView.text = current.date
+        //holder.productDateItemView.text = Editable.Factory.getInstance().newEditable(current.date)
         Picasso.get().load(Uri.parse(current.urlImage)).into(holder.productImageItemView)
+        holder.productDLCDLUOItemView.text = current.dlc_dluo
     }
 
     internal fun setProducts(products: List<Product>) {

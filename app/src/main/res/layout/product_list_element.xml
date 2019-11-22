@@ -32,7 +32,7 @@
         app:layout_constraintStart_toEndOf="@+id/list_product_element_picture"
         app:layout_constraintTop_toTopOf="@+id/list_product_element_picture" />
 
-    <EditText
+    <TextView
         android:id="@+id/list_product_element_date"
         android:layout_width="0dp"
         android:layout_height="0dp"
