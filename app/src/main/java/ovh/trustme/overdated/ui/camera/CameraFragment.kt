@@ -11,7 +11,6 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.get
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
@@ -23,8 +22,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import ovh.trustme.overdated.MainActivity
 import ovh.trustme.overdated.ProductsViewModel
-import java.text.SimpleDateFormat
 import ovh.trustme.overdated.R
+import ovh.trustme.overdated.database.Product
 import ovh.trustme.overdated.pojo.ProductService
 import ovh.trustme.overdated.pojo.RequeteOpenfood
 import retrofit2.Callback
@@ -33,13 +32,15 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class CameraFragment : Fragment() {
 
     private lateinit var cameraViewModel: CameraViewModel
-    private lateinit var productsViewModel: ProductsViewModel
+    private lateinit var productViewModel: ProductsViewModel
+    private lateinit var root: View
 
     private var barcodeView: DecoratedBarcodeView? = null
     private var lastText: String? = null
@@ -66,7 +67,7 @@ class CameraFragment : Fragment() {
     ): View? {
 
         cameraViewModel = ViewModelProviders.of(this).get(CameraViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_camera, container, false)
+        root = inflater.inflate(R.layout.fragment_camera, container, false)
 
         val textView: TextView = root.findViewById(R.id.text_gallery)
         cameraViewModel.text.observe(this, Observer {
@@ -88,102 +89,96 @@ class CameraFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.let{
-            productsViewModel = ViewModelProviders.of(it).get(ProductsViewModel::class.java)
 
-            val dlcDluo: Switch = dlc_dluo
-            dlcDluo.setOnCheckedChangeListener{ _, isChecked ->
-                if (isChecked) {
-                    // The switch is enabled/checked
-                    dlcDluo.text = getString(R.string.DCL)
+        // Get a new or existing ViewModel from the ViewModelProvider.
+        productViewModel = ViewModelProviders.of(this).get(ProductsViewModel::class.java)
 
-                } else {
-                    // The switch is disabled
-                    dlcDluo.text = getString(R.string.DLUO)
-                }
-            }
+        val dlcDluo: Switch = dlc_dluo
+        dlcDluo.setOnCheckedChangeListener{ _, isChecked ->
+            if (isChecked) {
+                // The switch is enabled/checked
+                dlcDluo.text = getString(R.string.DCL)
 
-            val lechoixdansladate: TextView  = lechoixdansladate
-            lechoixdansladate.text = SimpleDateFormat("dd.MM.yyyy")
-                .format(System.currentTimeMillis())
-
-            val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-                this.level = HttpLoggingInterceptor.Level.BODY
-            }
-
-            val client : OkHttpClient = OkHttpClient.Builder().apply {
-                this.addInterceptor(interceptor)
-            }.build()
-
-            val retrofit = Retrofit.Builder()
-                .baseUrl("https://world.openfoodfacts.org/")
-                .addConverterFactory(MoshiConverterFactory.create())
-                .client(client)
-                .build()
-
-            val capartencuisine: Button = capartencuisine
-
-            capartencuisine.setOnClickListener{
-                val type = dlcDluo.text as String
-                val date  = lechoixdansladate.text as String
-
-
-                val service = retrofit.create(ProductService::class.java)
-                val productRequest = service.productGot()
-
-                if(!productRequest.isExecuted) {
-                    productRequest.enqueue(object : Callback<RequeteOpenfood> {
-                        override fun onResponse(
-                            call: Call<RequeteOpenfood>,
-                            response: Response<RequeteOpenfood>
-                        ) {
-                            val prodInfo: RequeteOpenfood? = response.body()
-                            val product = prodInfo?.product
-                            //Log.d("goodFood", productRequest.request().url.toString())
-                            Toast.makeText(requireContext(),product?.product_name, Toast.LENGTH_LONG
-                            ).show()
-                        }
-
-                        override fun onFailure(call: Call<RequeteOpenfood>, t: Throwable) {
-                            Log.d("badFood", t.message)
-                            if (t is IOException)
-                                Toast.makeText(
-                                    requireContext(),
-                                    "La co marche pas",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            else
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Fail to request",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                        }
-                    })
-                }
-            }
-
-            val cal = Calendar.getInstance()
-
-
-            val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                val myFormat = "dd.MM.yyyy" // mention the format you need
-                val sdf = SimpleDateFormat(myFormat, Locale.US)
-                lechoixdansladate.text = sdf.format(cal.time)
-
-            }
-
-            lechoixdansladate.setOnClickListener{
-                DatePickerDialog(requireContext(), dateSetListener,
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH),
-                    cal.get(Calendar.DAY_OF_MONTH)).show()
+            } else {
+                // The switch is disabled
+                dlcDluo.text = getString(R.string.DLUO)
             }
         }
+
+        val lechoixdansladate: TextView  = lechoixdansladate
+        lechoixdansladate.text = SimpleDateFormat("dd.MM.yyyy")
+            .format(System.currentTimeMillis())
+
+        val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+                    this.level = HttpLoggingInterceptor.Level.BODY
+                }
+
+        val client : OkHttpClient = OkHttpClient.Builder().apply {
+                    this.addInterceptor(interceptor)
+                }.build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://world.openfoodfacts.org/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .client(client)
+            .build()
+
+        val capartencuisine: Button = capartencuisine
+
+        capartencuisine.setOnClickListener{
+            val type = dlcDluo.text as String
+            val date  = lechoixdansladate.text as String
+            val ean13: String = camera_ean.text.toString()
+
+            val service = retrofit.create(ProductService::class.java)
+            val productRequest = service.productGot(ean13)
+
+            if(!productRequest.isExecuted) {
+                productRequest.enqueue(object : Callback<RequeteOpenfood> {
+                    override fun onResponse(
+                        call: Call<RequeteOpenfood>,
+                        response: Response<RequeteOpenfood>
+                    ) {
+                        val prodInfo: RequeteOpenfood? = response.body()
+                        val product = prodInfo?.product
+                        //Log.d("goodFood", productRequest.request().url.toString())
+                        Toast.makeText(requireContext(),product?.product_name, Toast.LENGTH_LONG).show()
+                        val dbProduct = Product(0,date,product!!.product_name,type,product.image_url)
+                        productViewModel.insert(dbProduct)
+                    }
+
+                    override fun onFailure(call: Call<RequeteOpenfood>, t: Throwable) {
+                        Log.d("badFood", t.message)
+                        if (t is IOException) {
+                            Toast.makeText(requireContext(), "La co marche pas", Toast.LENGTH_LONG).show()
+                        }
+                        else {
+                            Toast.makeText(requireContext(),"Fail to request", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                })
+            }
+        }
+
+        val cal = Calendar.getInstance()
+
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, monthOfYear)
+                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                    val myFormat = "dd.MM.yyyy" // mention the format you need
+                    val sdf = SimpleDateFormat(myFormat, Locale.US)
+                    lechoixdansladate.text = sdf.format(cal.time)
+
+                }
+
+        lechoixdansladate.setOnClickListener{
+                    DatePickerDialog(requireContext(), dateSetListener,
+                        cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH),
+                        cal.get(Calendar.DAY_OF_MONTH)).show()
+                }
     }
 
     override fun onResume() {

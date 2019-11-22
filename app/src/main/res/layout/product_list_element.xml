@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_element_produit_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/colorBackground"
     android:orientation="vertical">
 
@@ -55,12 +55,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:contentDescription="barre pointillé"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_product_element_picture"
-        app:srcCompat="@drawable/ic_barre_jaune"
-        android:contentDescription="barre pointillé" />
+        app:srcCompat="@drawable/ic_barre_jaune" />
 
     <TextView
         android:id="@+id/list_product_perempt_type"
