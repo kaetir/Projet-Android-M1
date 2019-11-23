@@ -187,7 +187,7 @@ class CameraFragment : Fragment() {
                 }
             }
             else {
-                Toast.makeText(requireContext(), "Code invalide", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Produit inconnu", Toast.LENGTH_LONG).show()
             }
         }
 

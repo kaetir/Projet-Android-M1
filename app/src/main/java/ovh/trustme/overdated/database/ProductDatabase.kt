@@ -30,7 +30,10 @@ abstract class ProductDatabase: RoomDatabase(){
                     context.applicationContext,
                     ProductDatabase::class.java,
                     "product_database"
-                ).build()
+                )
+                    //  Clear database
+                    // .addCallback(ProductDatabaseCallback(scope))
+                    .build()
                 INSTANCE = instance
                 return instance
             }
