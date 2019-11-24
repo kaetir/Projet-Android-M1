@@ -29,10 +29,9 @@ abstract class ProductDatabase: RoomDatabase(){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ProductDatabase::class.java,
-                    "product_database"
+                    "products_database"
                 )
-                    //  Clear database
-                    // .addCallback(ProductDatabaseCallback(scope))
+                    .addCallback(ProductDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
                 return instance
@@ -44,12 +43,9 @@ abstract class ProductDatabase: RoomDatabase(){
         ) : RoomDatabase.Callback() {
             /**
              * Override the onOpen method to populate the database.
-             * For this sample, we clear the database every time it is created or opened.
              */
             override fun onOpen(db: SupportSQLiteDatabase) {
                 super.onOpen(db)
-                // If you want to keep the data through app restarts,
-                // comment out the following line.
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
                         populateDatabase(database.productDao())
@@ -60,12 +56,11 @@ abstract class ProductDatabase: RoomDatabase(){
 
         /**
          * Populate the database in a new coroutine.
-         * If you want to start with more words, just add them.
          */
         suspend fun populateDatabase(productDao: ProductDao) {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
-            productDao.deleteAll()
+            //productDao.deleteAll()
         }
 
     }

@@ -9,7 +9,7 @@ class CameraViewModel : ViewModel() {
 
 
     private val _text = MutableLiveData<String>().apply {
-        value = "Liste des produits"
+        value = "Lecteur de code barres"
     }
     val text: LiveData<String> = _text
 

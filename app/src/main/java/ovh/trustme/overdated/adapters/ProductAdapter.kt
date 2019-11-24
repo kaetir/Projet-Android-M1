@@ -2,11 +2,9 @@ package ovh.trustme.overdated.adapters
 
 import android.content.Context
 import android.net.Uri
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +20,7 @@ class ProductAdapter internal constructor(
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var products = emptyList<Product>() // Cached copy of products
 
+    // Retrieve all the corresponding elements of the product's view
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productNameItemView: TextView = itemView.findViewById(R.id.list_product_element_name)
         val productDateItemView: TextView = itemView.findViewById(R.id.list_product_element_date)
@@ -34,6 +33,7 @@ class ProductAdapter internal constructor(
         return ProductViewHolder(itemView)
     }
 
+    // Bind all the details from the database with the view
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val current = products[position]
         holder.productNameItemView.text = current.name

@@ -10,17 +10,18 @@ import ovh.trustme.overdated.database.Product
 import ovh.trustme.overdated.database.ProductDatabase
 import ovh.trustme.overdated.database.ProductRepository
 
+// ViewModel shared between camera and list_products fragments :
+
 class ProductsViewModel(application: Application) : AndroidViewModel(application) {
 
     // The ViewModel maintains a reference to the repository to get data.
     private val repository: ProductRepository
-    // LiveData gives us updated words when they change.
+    // LiveData gives us updated products when they change.
     val products: LiveData<List<Product>>
-    val product = MutableLiveData<Product>()
 
     init {
-        // Gets reference to WordDao from WordRoomDatabase to construct
-        // the correct WordRepository.
+        // Gets reference to ProductDao from ProductRoomDatabase to construct
+        // the correct ProductRepository.
         val productsDao = ProductDatabase.getDatabase(application, viewModelScope).productDao()
         repository = ProductRepository(productsDao)
         products = repository.products
